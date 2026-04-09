@@ -737,6 +737,24 @@ img { max-width: 100%; display: block; }
   color: var(--text-muted);
   letter-spacing: .06em;
 }
+/* This hides the Google Slides bottom bar */
+.crop-slides {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    aspect-ratio: 16 / 9; /* Keeps the presentation shape */
+    max-height: 450px;    /* Adjust this if the presentation looks too small */
+}
+
+.crop-slides iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* We make the iframe 5% taller to push the bar off the bottom edge */
+    height: 110%; 
+    border: none;
+}
 
 
 /* ----------------------------------------------------------------
