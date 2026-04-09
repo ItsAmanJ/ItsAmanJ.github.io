@@ -7,11 +7,13 @@
 
 <!-- Profile Stats -->
 [![ItsAmanJ's GitHub stats](https://github-readme-stats.vercel.app/api?username=ItsAmanJ&show_icons=true&theme=radical&hide_border=true&bg_color=0D1117&title_color=00D4AA&icon_color=00D4AA)](https://github.com/anuraghazra/github-readme-stats)
+ <div align="center">
 
-[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=ItsAmanJ&layout=compact&theme=radical&hide_border=true&bg_color=0D1117&title_color=00D4AA&border_color=00D4AA)](https://github.com/anuraghazra/github-readme-stats)
+[![Aman's GitHub stats](https://github-readme-stats.vercel.app/api?username=ItsAmanJ&show_icons=true&theme=radical&hide_border=true&bg_color=0D1117&title_color=00D4AA&icon_color=00D4AA&cache_seconds=21600)](https://github.com/ItsAmanJ)
+
+[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=ItsAmanJ&layout=compact&theme=radical&hide_border=true&bg_color=0D1117&title_color=00D4AA&cache_seconds=21600&size_weight=0.5&count_weight=0.5)](https://github.com/ItsAmanJ)
 
 </div>
-
 ### 👋 Hey, I'm Aman!
 18-year-old JEE warrior from **Varanasi, India** 🇮🇳. By day, I'm grinding Class 12 CBSE and chasing that 99+ percentile. By night? Tinkering with my Vivo V50 and Lenovo tablet—running Ubuntu on Termux, customizing ROMs, and deploying quick web projects on GitHub Pages. Fuelled by Honey Singh bangers 💥, I balance the hustle with badminton smashes, PUBG clutches, Clash Royale strategies, and soulful Hindustani vocal practice 🎤.
 
