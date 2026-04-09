@@ -739,14 +739,15 @@ img { max-width: 100%; display: block; }
 }
 .video-wrapper {
     position: relative;
-    width: 100%;
-    /* Increase this percentage or use a fixed max-width for better impact */
-    max-width: 850px; 
-    margin: 20px auto; /* Centers the video and adds space above/below */
-    padding-top: 56.25%; /* Keeps 16:9 ratio */
+    width: calc(100% + 40px); /* Makes it wider than the text */
+    margin-left: -20px;       /* Pulls it to the left to center the extra width */
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding-top: 56.25%;      /* Maintains 16:9 widescreen ratio */
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5); /* Adds depth to make it "pop" */
+    background: #000;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
 }
 
 .video-iframe {
@@ -758,6 +759,13 @@ img { max-width: 100%; display: block; }
     border: none;
 }
 
+/* For mobile/tablets where space is tight */
+@media (max-width: 768px) {
+    .video-wrapper {
+        width: 100%;
+        margin-left: 0;
+    }
+}
 
 
 /* ----------------------------------------------------------------
