@@ -737,38 +737,16 @@ img { max-width: 100%; display: block; }
   color: var(--text-muted);
   letter-spacing: .06em;
 }
-/* This hides the Google Slides bottom bar */
-.crop-slides {
+.video-wrapper {
     position: relative;
     width: 100%;
-    overflow: hidden;
-    aspect-ratio: 16 / 9; /* Keeps the presentation shape */
-    max-height: 450px;    /* Adjust this if the presentation looks too small */
-}
-
-.crop-slides {
-    position: relative;
-    width: 100%;
-    /* This height defines the 'window'. 
-       Adjust this until the black bars and white strip disappear */
-    height: 420px; 
-    overflow: hidden;
+    padding-top: 56.25%; /* Perfect 16:9 box */
     border-radius: 12px;
-    background: #000; /* Keeps the background dark if it loads slowly */
-}
-
-
-/* Container perfectly locks into a widescreen format */
-.crop-slides {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 16 / 9; 
-    border-radius: 8px; /* Optional: matches your site's smooth UI */
     overflow: hidden;
+    background: #000;
 }
 
-/* Iframe gracefully fills that perfect 16:9 box */
-.crop-slides iframe {
+.video-iframe {
     position: absolute;
     top: 0;
     left: 0;
