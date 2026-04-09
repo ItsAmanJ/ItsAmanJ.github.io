@@ -3,15 +3,13 @@
 <!-- Dynamic Typing Header -->
 <div align="center">
   <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=32&pause=1000&color=00D4AA&center=true&vCenter=true&random=false&width=600&lines=Hey%2C+I%27m+Aman;JEE+Aspirant+%F0%9F%8C%8D;Android+Tinkerer+%F0%9F%93%B1;Finance+Explorer+%F0%9F%92%B0;97.6%25+JEE+Mains+%F0%9F%94%A5;Vocalist+%F0%9F%8E%A4" alt="Typing SVG" />
-</div>
+<div align="center">
 
-<!-- Profile Stats -->
-[![ItsAmanJ's GitHub stats](https://github-readme-stats.vercel.app/api?username=ItsAmanJ&show_icons=true&theme=radical&hide_border=true&bg_color=0D1117&title_color=00D4AA&icon_color=00D4AA)](https://github.com/anuraghazra/github-readme-stats)
- <div align="center">
+<img src="https://github-readme-stats.vercel.app/api?username=ItsAmanJ&show_icons=true&theme=radical&hide_border=true&bg_color=0D1117&title_color=00D4AA&icon_color=00D4AA" alt="Aman’s GitHub stats" />
 
-[![Aman's GitHub stats](https://github-readme-stats.vercel.app/api?username=ItsAmanJ&show_icons=true&theme=radical&hide_border=true&bg_color=0D1117&title_color=00D4AA&icon_color=00D4AA&cache_seconds=21600)](https://github.com/ItsAmanJ)
+<br><br>
 
-[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=ItsAmanJ&layout=compact&theme=radical&hide_border=true&bg_color=0D1117&title_color=00D4AA&cache_seconds=21600&size_weight=0.5&count_weight=0.5)](https://github.com/ItsAmanJ)
+<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=ItsAmanJ&layout=compact&theme=radical&hide_border=true&bg_color=0D1117&title_color=00D4AA" alt="Top Langs" />
 
 </div>
 ### 👋 Hey, I'm Aman!
