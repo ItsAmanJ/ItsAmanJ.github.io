@@ -740,10 +740,13 @@ img { max-width: 100%; display: block; }
 .video-wrapper {
     position: relative;
     width: 100%;
-    padding-top: 56.25%; /* Perfect 16:9 box */
+    /* Increase this percentage or use a fixed max-width for better impact */
+    max-width: 850px; 
+    margin: 20px auto; /* Centers the video and adds space above/below */
+    padding-top: 56.25%; /* Keeps 16:9 ratio */
     border-radius: 12px;
     overflow: hidden;
-    background: #000;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5); /* Adds depth to make it "pop" */
 }
 
 .video-iframe {
@@ -754,6 +757,7 @@ img { max-width: 100%; display: block; }
     height: 100%;
     border: none;
 }
+
 
 
 /* ----------------------------------------------------------------
