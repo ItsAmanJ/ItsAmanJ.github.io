@@ -891,3 +891,116 @@ footer {
 @media (max-width: 400px) {
   .hobbies-grid { grid-template-columns: 1fr; }
 }
+
+
+/* ----------------------------------------------------------------
+   13.  ARDUINO ROBOT CARD — new achievement styles
+---------------------------------------------------------------- */
+
+/* Special accent on the robot card (green-teal shimmer to
+   distinguish it from the blue JEE highlight card) */
+.robot-card {
+  border-color: #00c896;
+  background: linear-gradient(135deg, var(--bg-card) 55%, #0a2520);
+  box-shadow: 0 0 32px #00c8961a;
+}
+.robot-card .tl-badge { color: #00e5b0; }
+
+/* ── Timeline card footer: year + button on same row ──────── */
+.tl-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: .75rem;
+  margin-top: 1rem;
+  padding-top: .85rem;
+  border-top: 1px solid var(--border);
+}
+
+/* LinkedIn / "View Project" pill button inside the card */
+.btn-tl-link {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: .45rem 1rem;
+  border-radius: 100px;
+  border: 1px solid #0a66c2;
+  color: #5599e8;
+  background: #0a66c20d;
+  transition: all var(--trans);
+  white-space: nowrap;
+}
+.btn-tl-link:hover {
+  background: #0a66c2;
+  color: #fff;
+  border-color: #0a66c2;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px #0a66c233;
+}
+
+/* ── Google Slides / presentation embed wrapper ───────────── */
+.slides-wrapper {
+  position: relative;
+  width: 100%;
+  /* 16:9 aspect ratio */
+  aspect-ratio: 16 / 9;
+  margin: 1.25rem 0 .5rem;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  /* Fade-in when it enters view */
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity .7s var(--ease) .15s, transform .7s var(--ease) .15s;
+}
+/* Triggered by JS reveal observer when parent card becomes visible */
+.timeline-item.visible .slides-wrapper {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* The actual iframe fills the wrapper completely */
+.slides-iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: var(--radius);
+}
+
+/* Placeholder shown while no real embed URL is set */
+.slides-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  background: radial-gradient(ellipse at 50% 40%, #0d1f18, var(--bg));
+  border-radius: var(--radius);
+  pointer-events: none; /* hidden once iframe loads */
+}
+/* Hide placeholder once a real src is set (JS removes it) */
+.slides-placeholder.hidden { display: none; }
+.slides-ph-icon { font-size: 2.5rem; }
+.slides-placeholder p {
+  font-size: .82rem;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 0 1rem;
+}
+
+/* ── Responsive: shrink embed on small screens ─────────────── */
+@media (max-width: 640px) {
+  .tl-footer { flex-direction: column; align-items: flex-start; }
+  .slides-wrapper { margin: 1rem 0 .25rem; }
+}

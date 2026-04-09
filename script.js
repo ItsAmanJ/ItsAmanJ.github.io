@@ -141,6 +141,7 @@
     'JEE Aspirant',
     'Creative Editor',
     'Android Modder',
+    'Robotics Builder',
     'Linux Explorer',
     'Badminton Player',
   ];
@@ -287,6 +288,32 @@ document.addEventListener('DOMContentLoaded', () => {
 ---------------------------------------------------------------- */
 const yearEl = document.getElementById('year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+
+/* ----------------------------------------------------------------
+   8.  GOOGLE SLIDES EMBED — hide placeholder once real URL is set
+       Checks if the iframe src is a real URL (not the placeholder
+       text). If so, hides the .slides-placeholder overlay so the
+       live embed is fully visible.
+---------------------------------------------------------------- */
+(function initSlidesEmbed() {
+  const iframe = document.getElementById('robotSlides');
+  const ph     = document.getElementById('slidesPH');
+  if (!iframe || !ph) return;
+
+  const src = iframe.getAttribute('src') || '';
+  /* If the src is still the placeholder string, keep the overlay */
+  if (src.startsWith('http')) {
+    /* Real URL pasted — hide the placeholder immediately */
+    ph.classList.add('hidden');
+  }
+  /* Also hide on successful load (belt-and-suspenders) */
+  iframe.addEventListener('load', () => {
+    if ((iframe.getAttribute('src') || '').startsWith('http')) {
+      ph.classList.add('hidden');
+    }
+  });
+})();
 
 
 /* ----------------------------------------------------------------
