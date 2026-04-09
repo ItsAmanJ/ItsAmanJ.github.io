@@ -1,21 +1,22 @@
 <div align="center">
 
-<!-- Dynamic Typing Header -->
-<div align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=32&pause=1000&color=00D4AA&center=true&vCenter=true&random=false&width=600&lines=Hey%2C+I%27m+Aman;JEE+Aspirant+%F0%9F%8C%8D;Android+Tinkerer+%F0%9F%93%B1;Finance+Explorer+%F0%9F%92%B0;97.6%25+JEE+Mains+%F0%9F%94%A5;Vocalist+%F0%9F%8E%A4" alt="Typing SVG" />
-<div align="center">
+# Hey, I'm Aman 👋
 
-<img src="https://github-readme-stats.vercel.app/api?username=ItsAmanJ&show_icons=true&theme=radical&hide_border=true&bg_color=0D1117&title_color=00D4AA&icon_color=00D4AA" alt="Aman’s GitHub stats" />
+<img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=28&pause=1000&color=00D4AA&center=true&vCenter=true&random=false&width=700&lines=Competitive+Student;JEE+Aspirant+%F0%9F%93%9D;Android+Tinkerer+%F0%9F%93%B1;Finance+%26+Investment+Explorer+%F0%9F%92%B0;Badminton+%7C+Gaming+%7C+Music+%F0%9F%8F%B8%F0%9F%8E%AE%F0%9F%8E%A4" alt="Typing SVG" />
 
-<br><br>
-
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=ItsAmanJ&layout=compact&theme=radical&hide_border=true&bg_color=0D1117&title_color=00D4AA" alt="Top Langs" />
+![Profile Views](https://komarev.com/ghpvc/?username=ItsAmanJ&style=flat-square&color=00D4AA)
+![GitHub followers](https://img.shields.io/github/followers/ItsAmanJ?style=flat-square&color=00D4AA)
+![Profile](https://img.shields.io/badge/GitHub-ItsAmanJ-00D4AA?style=flat-square)
 
 </div>
-### 👋 Hey, I'm Aman!
-18-year-old JEE warrior from **Varanasi, India** 🇮🇳. By day, I'm grinding Class 12 CBSE and chasing that 99+ percentile. By night? Tinkering with my Vivo V50 and Lenovo tablet—running Ubuntu on Termux, customizing ROMs, and deploying quick web projects on GitHub Pages. Fuelled by Honey Singh bangers 💥, I balance the hustle with badminton smashes, PUBG clutches, Clash Royale strategies, and soulful Hindustani vocal practice 🎤.
 
-**Driven by curiosity in tech, finance, and investments.** Let's build something epic!
+---
+
+## About Me
+
+I'm **Aman** from **Varanasi, India**, an 18-year-old competitive student with a strong curiosity for tech, finance, and investments. I spend a lot of time tinkering with Android devices like my **Vivo V50** and **Lenovo tablet**, exploring customization, troubleshooting, and even running **Ubuntu via Termux**.
+
+I’m also a **Class 12 CBSE student** and a **dedicated JEE aspirant**. My **JEE Mains January percentile was 97.616**, and I keep pushing myself to improve with focus, consistency, and discipline. While working, I like listening to **Honey Singh** to keep the energy high.
 
 ---
 
