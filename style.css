@@ -746,15 +746,39 @@ img { max-width: 100%; display: block; }
     max-height: 450px;    /* Adjust this if the presentation looks too small */
 }
 
+.crop-slides {
+    position: relative;
+    width: 100%;
+    /* This height defines the 'window'. 
+       Adjust this until the black bars and white strip disappear */
+    height: 420px; 
+    overflow: hidden;
+    border-radius: 12px;
+    background: #000; /* Keeps the background dark if it loads slowly */
+}
+
 .crop-slides iframe {
     position: absolute;
-    top: 0;
+    /* Move the slide up slightly to hide the bottom bar */
+    top: -2px; 
     left: 0;
     width: 100%;
-    /* We make the iframe 5% taller to push the bar off the bottom edge */
-    height: 110%; 
+    /* We set the height to be taller than the container (420px) 
+       so the bottom is naturally cut off without stretching the content */
+    height: 450px; 
     border: none;
 }
+
+/* Responsive adjustment for phones */
+@media (max-width: 600px) {
+    .crop-slides {
+        height: 250px;
+    }
+    .crop-slides iframe {
+        height: 280px;
+    }
+}
+
 
 
 /* ----------------------------------------------------------------
