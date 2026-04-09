@@ -5,7 +5,7 @@
 <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=28&pause=1000&color=00D4AA&center=true&vCenter=true&random=false&width=700&lines=Competitive+Student;JEE+Aspirant+%F0%9F%93%9D;Android+Tinkerer+%F0%9F%93%B1;Finance+%26+Investment+Explorer+%F0%9F%92%B0;Badminton+%7C+Gaming+%7C+Music+%F0%9F%8F%B8%F0%9F%8E%AE%F0%9F%8E%A4" alt="Typing SVG" />
 
 ![Profile Views](https://komarev.com/ghpvc/?username=ItsAmanJ&style=flat-square&color=00D4AA)
-![GitHub followers](https://img.shields.io/github/followers/ItsAmanJ?style=flat-square&color=00D4AA)
+
 ![Profile](https://img.shields.io/badge/GitHub-ItsAmanJ-00D4AA?style=flat-square)
 
 </div>
