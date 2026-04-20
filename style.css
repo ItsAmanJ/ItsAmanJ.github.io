@@ -340,36 +340,29 @@ img { max-width: 100%; display: block; }
     --accent-3: #007bff; 
     --accent: #6f42c1;   
     --ease: cubic-bezier(0.25, 1, 0.5, 1);
-    --font-display: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
+    --font-display: 'Se
+/* Giant name with staggered letter animation */
 .hero-name {
-    font-family: var(--font-display);
-    font-size: clamp(4rem, 14vw, 10rem);
-    font-weight: 800;
-    letter-spacing: -.04em;
-    line-height: .95;
-    margin-bottom: 1.5rem;
-    
-    /* We removed the gradient background from here to prevent the invisibility bug */
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 14vw, 10rem);
+  font-weight: 800;
+  letter-spacing: -.04em;
+  line-height: .95;
+  margin-bottom: 1.5rem;
+  /* Gradient text */
+  background: linear-gradient(135deg, #eaf0ff 0%, var(--accent-3) 50%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
-
 .name-char {
-    display: inline-block;
-    
-    /* We moved the gradient directly to the moving letters */
-    background: linear-gradient(135deg, #eaf0ff 0%, var(--accent-3) 50%, var(--accent) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    
-    /* The animation */
-    animation: nameIn .7s var(--ease) calc(var(--d) * .08s + .4s) both;
+  display: inline-block;
+  animation: nameIn .7s var(--ease) calc(var(--d) * .08s + .4s) both;
 }
-
 @keyframes nameIn {
-    from { opacity: 0; transform: translateY(40px) rotateX(-30deg); }
-    to   { opacity: 1; transform: translateY(0) rotateX(0); }
+  from { opacity: 0; transform: translateY(40px) rotateX(-30deg); }
+  to   { opacity: 1; transform: translateY(0) rotateX(0); }
+
 }
 
 
