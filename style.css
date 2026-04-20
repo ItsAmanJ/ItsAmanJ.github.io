@@ -347,7 +347,7 @@ img { max-width: 100%; display: block; }
   /* Gradient text */
   background: linear-gradient(135deg, #eaf0ff 0%, var(--accent-3) 50%, var(--accent) 100%);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+/*  -webkit-text-fill-color: transparent;*/
   background-clip: text;
 }
 .name-char {
