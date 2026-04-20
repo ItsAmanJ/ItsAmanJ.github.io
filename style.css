@@ -335,6 +335,17 @@ img { max-width: 100%; display: block; }
   text-transform: uppercase;
   animation: fadeUp .8s var(--ease) .2s both;
 }
+:root {
+    /* Animation speed curve */
+    --ease: cubic-bezier(0.25, 1, 0.5, 1); 
+    
+    /* Gradient colors - I picked a cool blue/purple theme, but you can change the hex codes! */
+    --accent-3: #007bff; 
+    --accent: #6f42c1;   
+    
+    /* Font fallback */
+    --font-display: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
 /* Giant name with staggered letter animation */
 .hero-name {
@@ -347,7 +358,7 @@ img { max-width: 100%; display: block; }
   /* Gradient text */
   background: linear-gradient(135deg, #eaf0ff 0%, var(--accent-3) 50%, var(--accent) 100%);
   -webkit-background-clip: text;
-/*  -webkit-text-fill-color: transparent;*/
+ -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 .name-char {
