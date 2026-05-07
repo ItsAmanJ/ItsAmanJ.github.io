@@ -51,6 +51,7 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: var(--nav-height);
+   overflow-x: hidden;
 }
 
 body {
@@ -112,6 +113,8 @@ img { max-width: 100%; display: block; }
   align-items: center;
   gap: 1rem;
   margin-bottom: 3.5rem;
+   flex-wrap: wrap;
+  min-width: 0;
 }
 .section-num {
   color: var(--accent);
@@ -124,7 +127,7 @@ img { max-width: 100%; display: block; }
   font-weight: 800;
   letter-spacing: -.02em;
   color: var(--text-primary);
-  white-space: nowrap;
+  overflow-wrap: break-word;
 }
 .heading-line {
   flex: 1;
