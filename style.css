@@ -863,6 +863,713 @@ img { max-width: 100%; display: block; }
 }
 .social-link svg { flex-shrink: 0; }
 
+  <style>
+    /* ════════════════════════════════════════════════════════
+       CSS TOKENS — These already exist in your style.css.
+       If you copy the CSS rules below into style.css, delete
+       this :root block (you already have one).
+       ════════════════════════════════════════════════════════ */
+    :root {
+      --bg:          #080c14;
+      --bg-2:        #0d1221;
+      --bg-card:     #111827;
+      --bg-card-h:   #162035;
+      --border:      #1e2d47;
+      --accent:      #2979ff;
+      --accent-2:    #7c3aed;
+      --accent-3:    #00e5ff;
+      --text-primary:   #eaf0ff;
+      --text-secondary: #8899bb;
+      --text-muted:     #4a5c7a;
+      --font-display: 'Syne', sans-serif;
+      --font-body:    'Outfit', sans-serif;
+      --font-mono:    'JetBrains Mono', monospace;
+      --radius:      12px;
+      --radius-sm:   6px;
+      --max-width:   1140px;
+      --ease:        cubic-bezier(.4,0,.2,1);
+      --trans:       0.3s var(--ease);
+
+      /* ── Gaming accent colours (NEW — add these to your :root) ── */
+      --bgmi-color:  #f59e0b;          /* amber/gold for BGMI */
+      --bgmi-glow:   rgba(245,158,11,.28);
+      --cod-color:   #94a3b8;          /* steel-blue for COD Mobile */
+      --cod-glow:    rgba(148,163,184,.22);
+    }
+
+    /* ── Page shell (demo only — not needed in your portfolio) ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+    ul { list-style: none; }
+    a  { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* ── Layout helpers (already in your style.css) ── */
+    .section     { padding: 6rem 0; }
+    .section-alt { background: var(--bg-2); }
+    .container   { max-width: var(--max-width); margin: 0 auto; padding: 0 1.5rem; }
+    .mono        { font-family: var(--font-mono); }
+    .accent      { color: var(--accent); }
+
+    /* ── Section heading (matches your existing pattern exactly) ── */
+    .section-heading {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 3.5rem;
+      flex-wrap: wrap;
+      min-width: 0;
+    }
+    .section-num {
+      font-family: var(--font-mono);
+      color: var(--accent);
+      font-size: .8rem;
+      opacity: .7;
+    }
+    .section-heading h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: -.02em;
+      overflow-wrap: break-word;
+    }
+    .heading-line {
+      flex: 1;
+      min-width: 20px;
+      height: 1px;
+      background: linear-gradient(90deg, var(--border) 0%, transparent 100%);
+    }
+
+
+    /* ════════════════════════════════════════════════════════
+       SUB-SECTION LABEL
+       The small "Gaming Profiles / YouTube / Find Me Online"
+       heading used inside this section.
+       ════════════════════════════════════════════════════════ */
+    .hub-subtitle {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      font-family: var(--font-mono);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 1.75rem;
+    }
+    .hub-subtitle::before {
+      content: '';
+      display: inline-block;
+      width: 18px;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    /* Divider between sub-sections */
+    .hub-divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, var(--border), transparent);
+      margin: 4.5rem 0;
+    }
+
+
+    /* ════════════════════════════════════════════════════════
+
+       1. GAMING PROFILE CARDS
+
+       ════════════════════════════════════════════════════════ */
+    .gaming-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.75rem;
+    }
+
+    /*
+      The card uses two layers:
+        .gaming-card-bg  — overflow: hidden  → clips the background image
+        .character-wrap  — overflow: visible → lets the PNG scale beyond
+                           the card border on hover (the "pop out" effect)
+    */
+    .gaming-card {
+      position: relative;
+      height: 430px;
+      border-radius: 20px;
+      overflow: visible;        /* allow character to burst out on hover */
+      cursor: default;
+    }
+
+    /* ── Background layer: image + gradient overlay ── */
+    .gaming-card-bg {
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      overflow: hidden;         /* clips the bg image to card bounds */
+      z-index: 0;
+      border: 1px solid var(--border);
+      transition:
+        border-color .4s var(--ease),
+        box-shadow   .4s var(--ease);
+    }
+    .gaming-card-bg .bg-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(.45) saturate(.7);
+      transition: transform .7s var(--ease), filter .7s var(--ease);
+    }
+    /* Dark-to-opaque gradient so the text strip is always readable */
+    .gaming-card-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        transparent          0%,
+        rgba(8,12,20, .3)   45%,
+        rgba(8,12,20, .96) 100%
+      );
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* ── Game label badge — top-left pill ── */
+    .game-badge {
+      position: absolute;
+      top: 1.1rem;
+      left: 1.1rem;
+      z-index: 4;
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      padding: .3rem .85rem .3rem .55rem;
+      background: rgba(8,12,20, .72);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255, .09);
+      border-radius: 100px;
+      font-family: var(--font-mono);
+      font-size: .62rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .game-badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ── Character PNG — the "pop-out" hero element ── */
+    .character-wrap {
+      position: absolute;
+      bottom: 96px;            /* floats above the info strip */
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      width: 200px;
+      height: 230px;
+      pointer-events: none;
+      transition: transform .5s var(--ease), filter .5s var(--ease);
+    }
+    .character-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: bottom center;
+      /* Initial soft shadow */
+      filter: drop-shadow(0 10px 28px rgba(0,0,0,.65));
+      transition: filter .5s var(--ease);
+    }
+
+    /* ── Info strip — IGN / ID / Level ── */
+    .card-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 4;
+      padding: 1.1rem 1.4rem 1.3rem;
+      background: rgba(8,12,20,.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(255,255,255,.06);
+      border-bottom-left-radius:  20px;
+      border-bottom-right-radius: 20px;
+    }
+    .card-ign {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 800;
+      letter-spacing: -.01em;
+      margin-bottom: .45rem;
+      /* colour set per-card below */
+    }
+    .card-meta {
+      display: flex;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
+    .card-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: .1rem;
+    }
+    .card-meta-label {
+      font-family: var(--font-mono);
+      font-size: .57rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .card-meta-value {
+      font-family: var(--font-mono);
+      font-size: .78rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+    }
+
+    /* ════ BGMI-specific styles ════ */
+    .bgmi-card .game-badge      { color: var(--bgmi-color); }
+    .bgmi-card .game-badge-dot  { background: var(--bgmi-color); box-shadow: 0 0 6px var(--bgmi-color); }
+    .bgmi-card .card-ign        { color: var(--bgmi-color); }
+
+    .bgmi-card:hover .gaming-card-bg {
+      border-color: var(--bgmi-color);
+      box-shadow:
+        0 0 0 1px var(--bgmi-color),
+        0 0 48px var(--bgmi-glow),
+        0 24px 64px rgba(0,0,0,.55);
+    }
+    .bgmi-card:hover .gaming-card-bg .bg-img {
+      transform: scale(1.06);
+      filter: brightness(.6) saturate(1.15);
+    }
+    .bgmi-card:hover .character-wrap {
+      transform: translateX(-50%) scale(1.13) translateY(-18px);
+      filter: drop-shadow(0 0 18px rgba(245,158,11,.45));
+    }
+    .bgmi-card:hover .character-wrap img {
+      filter: drop-shadow(0 14px 36px rgba(245,158,11,.55));
+    }
+
+    /* ════ COD Mobile-specific styles ════ */
+    .cod-card .game-badge      { color: var(--cod-color); }
+    .cod-card .game-badge-dot  { background: var(--cod-color); box-shadow: 0 0 6px var(--cod-color); }
+    .cod-card .card-ign        { color: var(--cod-color); }
+
+    .cod-card:hover .gaming-card-bg {
+      border-color: var(--cod-color);
+      box-shadow:
+        0 0 0 1px var(--cod-color),
+        0 0 48px var(--cod-glow),
+        0 24px 64px rgba(0,0,0,.55);
+    }
+    .cod-card:hover .gaming-card-bg .bg-img {
+      transform: scale(1.06);
+      filter: brightness(.6) saturate(.85);
+    }
+    .cod-card:hover .character-wrap {
+      transform: translateX(-50%) scale(1.13) translateY(-18px);
+    }
+    .cod-card:hover .character-wrap img {
+      filter: drop-shadow(0 14px 36px rgba(148,163,184,.55));
+    }
+
+
+    /* ════════════════════════════════════════════════════════
+
+       2. YOUTUBE SHOWCASE
+
+       ════════════════════════════════════════════════════════ */
+
+    /* Channel header row — avatar + name + subscribe button */
+    .yt-channel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.25rem;
+    }
+    .yt-channel-info {
+      display: flex;
+      align-items: center;
+      gap: .9rem;
+    }
+    .yt-channel-avatar-wrap {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid var(--border);
+      flex-shrink: 0;
+      background: var(--bg-card);
+    }
+    .yt-channel-avatar-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .yt-channel-name {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .yt-channel-subs {
+      font-family: var(--font-mono);
+      font-size: .68rem;
+      color: var(--text-muted);
+      margin-top: .1rem;
+    }
+    .yt-subscribe-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .5rem 1.35rem;
+      background: #ff0000;
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: .82rem;
+      font-weight: 600;
+      border-radius: 100px;
+      transition: background var(--trans), transform var(--trans), box-shadow var(--trans);
+    }
+    .yt-subscribe-btn:hover {
+      background: #cc0000;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255,0,0,.3);
+    }
+
+    /* Main featured video — 16:9 iframe wrapper */
+    .yt-main-wrapper {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;          /* lock 16:9 ratio */
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #000;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 8px 48px rgba(0,0,0,.5);
+    }
+    .yt-main-wrapper iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Thumbnail grid — 4 columns desktop, 2 on tablet+mobile */
+    .yt-thumbs-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+    .yt-thumb-card {
+      display: block;
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      transition: border-color var(--trans), transform var(--trans), box-shadow var(--trans);
+      color: inherit;
+    }
+    .yt-thumb-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(41,121,255,.14);
+    }
+
+    /* Thumbnail image — maintains 16:9 */
+    .yt-thumb-img-wrap {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      overflow: hidden;
+      background: var(--bg-2);
+    }
+    .yt-thumb-img-wrap img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .45s var(--ease);
+    }
+    .yt-thumb-card:hover .yt-thumb-img-wrap img {
+      transform: scale(1.06);
+    }
+
+    /* Play triangle overlay on hover */
+    .yt-thumb-img-wrap::after {
+      content: '▶';
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      background: rgba(0,0,0,.38);
+      color: rgba(255,255,255,.95);
+      opacity: 0;
+      transition: opacity var(--trans);
+      pointer-events: none;
+    }
+    .yt-thumb-card:hover .yt-thumb-img-wrap::after {
+      opacity: 1;
+    }
+
+    /* Duration badge — bottom-right of thumbnail */
+    .yt-thumb-duration {
+      position: absolute;
+      bottom: .45rem;
+      right: .45rem;
+      background: rgba(0,0,0,.82);
+      color: #fff;
+      font-family: var(--font-mono);
+      font-size: .62rem;
+      padding: .15rem .4rem;
+      border-radius: 4px;
+      pointer-events: none;
+    }
+
+    .yt-thumb-info   { padding: .7rem .75rem .85rem; }
+    .yt-thumb-title  {
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.45;
+      margin-bottom: .35rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .yt-thumb-meta {
+      display: flex;
+      gap: .4rem;
+      font-family: var(--font-mono);
+      font-size: .62rem;
+      color: var(--text-muted);
+    }
+    .yt-thumb-meta span:not(:last-child)::after {
+      content: ' ·';
+    }
+
+
+    /* ════════════════════════════════════════════════════════
+
+       3. SOCIAL / FLOWPAGE LINK HUB
+
+       ════════════════════════════════════════════════════════ */
+    .flowpage-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .85rem;
+    }
+
+    /* Base styles shared by every link button */
+    .flow-link {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: .95rem 1.3rem;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: inherit;
+      overflow: hidden;
+      transition:
+        transform     .35s var(--ease),
+        box-shadow    .35s var(--ease),
+        border-color  .35s var(--ease);
+      cursor: pointer;
+    }
+
+    /* The animated brand-colour fill — sits behind all content */
+    .flow-link::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity .35s var(--ease);
+    }
+    .flow-link:hover {
+      transform: translateY(-3px);
+      border-color: transparent;
+    }
+    .flow-link:hover::before { opacity: 1; }
+
+    /* Icon box */
+    .flow-link-icon {
+      position: relative;
+      z-index: 1;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: rgba(255,255,255,.07);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      transition: background var(--trans);
+    }
+    .flow-link:hover .flow-link-icon {
+      background: rgba(255,255,255,.16);
+    }
+
+    /* Text block */
+    .flow-link-text {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: .1rem;
+      min-width: 0;
+    }
+    .flow-link-label {
+      font-weight: 600;
+      font-size: .92rem;
+      color: var(--text-primary);
+      transition: color var(--trans);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .flow-link-sub {
+      font-family: var(--font-mono);
+      font-size: .68rem;
+      color: var(--text-muted);
+      transition: color var(--trans);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .flow-link:hover .flow-link-label,
+    .flow-link:hover .flow-link-sub { color: #fff; }
+
+    /* Arrow nudge */
+    .flow-link-arrow {
+      position: relative;
+      z-index: 1;
+      margin-left: auto;
+      flex-shrink: 0;
+      font-size: .85rem;
+      opacity: .35;
+      transition: opacity var(--trans), transform var(--trans);
+    }
+    .flow-link:hover .flow-link-arrow {
+      opacity: 1;
+      transform: translateX(5px);
+    }
+
+    /* ── Brand fills ── */
+    .flow-instagram::before {
+      background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 50%, #fcb045 100%);
+    }
+    .flow-instagram:hover { box-shadow: 0 10px 36px rgba(253,29,29,.22); }
+
+    .flow-linkedin::before { background: #0a66c2; }
+    .flow-linkedin:hover   { box-shadow: 0 10px 36px rgba(10,102,194,.22); }
+
+    .flow-github::before { background: linear-gradient(135deg, #24292e, #3d444c); }
+    .flow-github:hover   { box-shadow: 0 10px 36px rgba(36,41,46,.45); }
+
+    .flow-youtube::before { background: linear-gradient(135deg, #c4302b, #ff0000); }
+    .flow-youtube:hover   { box-shadow: 0 10px 36px rgba(255,0,0,.22); }
+
+    .flow-flowpage::before { background: linear-gradient(135deg, #4f46e5, #7c3aed); }
+    .flow-flowpage:hover   { box-shadow: 0 10px 36px rgba(124,58,237,.22); }
+
+    .flow-discord::before { background: #5865f2; }
+    .flow-discord:hover   { box-shadow: 0 10px 36px rgba(88,101,242,.22); }
+
+    /* ── Featured link — spans full width, has preview image ── */
+    .flow-link-featured {
+      grid-column: 1 / -1;
+      border-color: rgba(41,121,255,.35);
+      background: linear-gradient(135deg, var(--bg-card) 55%, #0f1e3d);
+    }
+    .flow-link-featured::before {
+      background: linear-gradient(135deg, #1a3566 0%, var(--accent) 100%);
+    }
+    .flow-link-featured:hover {
+      box-shadow: 0 10px 40px rgba(41,121,255,.25);
+    }
+
+    /* Small preview image on the left of the featured button */
+    .featured-preview {
+      position: relative;
+      z-index: 1;
+      width: 54px;
+      height: 54px;
+      border-radius: 10px;
+      overflow: hidden;
+      flex-shrink: 0;
+      border: 1px solid rgba(255,255,255,.1);
+    }
+    .featured-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* "Featured" pill badge on the right */
+    .featured-badge {
+      position: relative;
+      z-index: 1;
+      margin-left: auto;
+      flex-shrink: 0;
+      font-family: var(--font-mono);
+      font-size: .58rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(41,121,255,.12);
+      border: 1px solid rgba(41,121,255,.3);
+      padding: .25rem .7rem;
+      border-radius: 100px;
+      transition: all var(--trans);
+      white-space: nowrap;
+    }
+    .flow-link-featured:hover .featured-badge {
+      background: rgba(255,255,255,.15);
+      border-color: rgba(255,255,255,.3);
+      color: #fff;
+    }
+
+
+    /* ════════════════════════════════════════════════════════
+       RESPONSIVE
+       ════════════════════════════════════════════════════════ */
+
+    /* Tablet — 900px */
+    @media (max-width: 900px) {
+      .yt-thumbs-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* Mobile
 
 /* ----------------------------------------------------------------
    11.  FOOTER BAR
