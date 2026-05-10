@@ -340,14 +340,15 @@ img { max-width: 100%; display: block; }
 }
 
 /* Giant name with staggered letter animation */
+/* AFTER */
 .hero-name {
   font-family: var(--font-display);
   font-size: clamp(4rem, 14vw, 10rem);
   font-weight: 800;
   letter-spacing: -.04em;
   line-height: .95;
-  margin-bottom: 1.5rem;
-  /* Gradient text */
+  margin-bottom: .75rem;         /* tightened slightly to make room for hint text */
+  white-space: nowrap;            /* ← ADD: locks all 4 letters on one line */
   background: linear-gradient(135deg, #eaf0ff 0%, var(--accent-3) 50%, var(--accent) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -356,6 +357,25 @@ img { max-width: 100%; display: block; }
 .name-char {
   display: inline-block;
   animation: nameIn .7s var(--ease) calc(var(--d) * .08s + .4s) both;
+}
+/* ── Hero easter egg hint ─────────────────────────── */
+.hero-secret {
+  font-size: .62rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  opacity: 0;
+  margin-bottom: 1.25rem;
+  animation:
+    fadeUp .8s var(--ease) 1.6s both,   /* slides in after name settles */
+    secretPulse 3.5s ease-in-out 2.4s infinite; /* then softly pulses */
+  pointer-events: none;
+  user-select: none;
+}
+
+@keyframes secretPulse {
+  0%, 100% { opacity: .28; }
+  50%       { opacity: .55; }
 }
 @keyframes nameIn {
   from { opacity: 0; transform: translateY(40px) rotateX(-30deg); }
@@ -894,7 +914,8 @@ footer {
   .hamburger    { display: flex; }
   .nav-links    { display: none; }
 
-  .hero-name    { font-size: clamp(3.5rem, 20vw, 5.5rem); }
+  /* AFTER */
+.hero-name { font-size: clamp(2.4rem, 15vw, 5.5rem); }
   .hero-actions { gap: .75rem; }
 
   .skills-grid  { grid-template-columns: 1fr; }
