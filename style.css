@@ -1751,5 +1751,7 @@ footer {
 @media (max-width: 640px) {
   .tl-footer { flex-direction: column; align-items: flex-start; }
   .slides-wrapper { margin: 1rem 0 .25rem; }
-
+ /* 👇 ADD THIS NEW LINE 👇 */
+  .gaming-grid  { grid-template-columns: 1fr; } 
+   
 }
