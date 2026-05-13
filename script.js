@@ -342,57 +342,44 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   sections.forEach(sec => sectionObserver.observe(sec));
 })();
-/* ----------------------------------------------------------------
-   VIEW COUNTER
-   Hits CountAPI on each new session and animates the number up.
-   Uses sessionStorage so refreshing the same tab doesn't double-count.
----------------------------------------------------------------- */
-(function initViewCounter() {
-  const el = document.getElementById('viewCount');
-  if (!el) return;
-
-  // ⚠️  Change 'itsamanj' to whatever namespace you used in Step 1
-  const NAMESPACE = 'itsamanj';
-  const KEY       = 'portfolio';
-  const API_HIT   = `https://api.countapi.xyz/hit/${NAMESPACE}/${KEY}`;
-  const API_GET   = `https://api.countapi.xyz/get/${NAMESPACE}/${KEY}`;
-
-  /* Animate the counter from 0 (or current display) to the target value */
-  function animateCount(target) {
-    const duration = 1400;          // ms
-    const start    = performance.now();
-    const from     = 0;
-
-    function step(now) {
-      const progress = Math.min((now - start) / duration, 1);
-      // Ease-out cubic
-      const ease     = 1 - Math.pow(1 - progress, 3);
-      const current  = Math.round(from + (target - from) * ease);
-      el.textContent = current.toLocaleString();
-      el.classList.remove('loading');
-      if (progress < 1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
-  }
-
-  /* Show the loading skeleton while waiting for the API */
-  el.classList.add('loading');
-  el.textContent = '';
-
-  /* Only call /hit (increment) once per browser session.
-     Subsequent page refreshes within the same tab just /get. */
-  const alreadyCounted = sessionStorage.getItem('vc_counted');
-  const endpoint = alreadyCounted ? API_GET : API_HIT;
-
-  fetch(endpoint)
-    .then(r => r.json())
-    .then(data => {
-      if (!alreadyCounted) sessionStorage.setItem('vc_counted', '1');
-      animateCount(data.value);
-    })
-    .catch(() => {
-      /* Fallback: show a static number so the UI never breaks */
-      el.classList.remove('loading');
-      el.textContent = '—';
-    });
+// Change this key only if you used a different one in Step 1
+const KEY     = 'itsamanj-portfolio-views';
+const BASE    = 'https://countapi.mileshilliard.com/api/v1';
+const API_HIT = ${BASE}/hit/${KEY};
+const API_GET = ${BASE}/get/${KEY};
+/* Smooth count-up animation */
+function animateCount(target) {
+const duration = 1600;
+const startTime = performance.now();
+(function step(now) {
+  const p    = Math.min((now - startTime) / duration, 1);
+  const ease = 1 - Math.pow(1 - p, 3);          /* ease-out cubic */
+  el.textContent = Math.round(target * ease).toLocaleString();
+  el.classList.remove('loading');
+  if (p < 1) requestAnimationFrame(step);
+})(performance.now());
+}
+/* Show skeleton while waiting */
+el.classList.add('loading');
+el.textContent = '';
+/*
+/hit  on first page load of this session (counts the visit)
+/get  on tab refresh (doesn't inflate the count)
+*/
+const alreadyCounted = sessionStorage.getItem('vc');
+const endpoint = alreadyCounted ? API_GET : API_HIT;
+fetch(endpoint)
+.then(r => {
+if (!r.ok) throw new Error('API error');
+return r.json();
+})
+.then(data => {
+if (!alreadyCounted) sessionStorage.setItem('vc', '1');
+animateCount(Number(data.value));
+})
+.catch(() => {
+/* API unreachable — show dash, page still works fine */
+el.classList.remove('loading');
+el.textContent = '—';
+});
 })();
