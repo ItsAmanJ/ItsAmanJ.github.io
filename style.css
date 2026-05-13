@@ -1755,3 +1755,14 @@ footer {
   .gaming-grid  { grid-template-columns: 1fr; } 
    
 }
+/* Divider line between sub-sections */
+.hub-divider {
+  width: 100%;
+  height: 1px;
+  /* Creates a line that starts solid and fades to transparent on the right */
+  background: linear-gradient(90deg, var(--border) 0%, transparent 100%);
+  
+  /* The margin controls the empty space above and below the line. 
+     Change 4.5rem to a smaller number (like 2rem) if the gap is too big! */
+  margin: 4.5rem 0; 
+}
