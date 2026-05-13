@@ -1766,3 +1766,49 @@ footer {
      Change 4.5rem to a smaller number (like 2rem) if the gap is too big! */
   margin: 2rem 0; 
 }
+/* ── View counter pill ── */
+.footer-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  font-size: .72rem;
+  color: var(--text-muted);
+  background: rgba(41,121,255,.07);
+  border: 1px solid rgba(41,121,255,.18);
+  border-radius: 100px;
+  padding: .25rem .65rem;
+  letter-spacing: .04em;
+  transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
+}
+.footer-counter:hover {
+  background: rgba(41,121,255,.14);
+  border-color: rgba(41,121,255,.4);
+}
+.counter-eye {
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+}
+#viewCount {
+  color: var(--accent);
+  font-weight: 700;
+  letter-spacing: .02em;
+}
+.counter-label {
+  color: var(--text-muted);
+}
+
+/* Loading pulse while the API responds */
+#viewCount.loading {
+  display: inline-block;
+  width: 28px;
+  height: .7em;
+  background: var(--border);
+  border-radius: 4px;
+  animation: counterPulse 1.2s ease-in-out infinite;
+  vertical-align: middle;
+}
+@keyframes counterPulse {
+  0%, 100% { opacity: .4; }
+  50%       { opacity: 1;  }
+}
