@@ -342,56 +342,44 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   sections.forEach(sec => sectionObserver.observe(sec));
 })();
-/* ----------------------------------------------------------------
-   9.  VISITOR COUNTER
-       Hits countapi on first load of a session (/hit),
-       then uses /get on refreshes to avoid inflating the count.
-       BASE_COUNT offsets the displayed number so it starts at 271.
----------------------------------------------------------------- */
-(function initViewCounter() {
-  const el      = document.getElementById('viewCount');
-  const heroEl  = document.getElementById('heroViewCount');
-  if (!el && !heroEl) return;
-
-  const KEY        = 'itsamanj-portfolio-views';
-  const BASE_URL   = 'https://countapi.mileshilliard.com/api/v1';
-  const BASE_COUNT = 271;                        /* display offset   */
-  const API_HIT    = `${BASE_URL}/hit/${KEY}`;
-  const API_GET    = `${BASE_URL}/get/${KEY}`;
-
-  /* Smooth ease-out count-up animation */
-  function animateCount(target) {
-    const duration  = 1600;
-    const startTime = performance.now();
-    (function step(now) {
-      const p    = Math.min((now - startTime) / duration, 1);
-      const ease = 1 - Math.pow(1 - p, 3);
-      const val  = Math.round(target * ease).toLocaleString();
-      if (el)     { el.textContent = val;     el.classList.remove('loading'); }
-      if (heroEl) { heroEl.textContent = val; heroEl.classList.remove('loading'); }
-      if (p < 1) requestAnimationFrame(step);
-    })(performance.now());
-  }
-
-  /* Show skeleton shimmer while API responds */
-  if (el)     { el.classList.add('loading');     el.textContent = ''; }
-  if (heroEl) { heroEl.classList.add('loading'); heroEl.textContent = ''; }
-
-  const alreadyCounted = sessionStorage.getItem('vc');
-  const endpoint       = alreadyCounted ? API_GET : API_HIT;
-
-  fetch(endpoint)
-    .then(r => {
-      if (!r.ok) throw new Error('API error');
-      return r.json();
-    })
-    .then(data => {
-      if (!alreadyCounted) sessionStorage.setItem('vc', '1');
-      animateCount(Number(data.value) + BASE_COUNT);
-    })
-    .catch(() => {
-      /* API unreachable — fall back to base count so it never shows '—' */
-      if (el)     { el.classList.remove('loading');     el.textContent = BASE_COUNT.toLocaleString(); }
-      if (heroEl) { heroEl.classList.remove('loading'); heroEl.textContent = BASE_COUNT.toLocaleString(); }
-    });
+// Change this key only if you used a different one in Step 1
+const KEY     = 'itsamanj-portfolio-views';
+const BASE    = 'https://countapi.mileshilliard.com/api/v1';
+const API_HIT = ${BASE}/hit/${KEY};
+const API_GET = ${BASE}/get/${KEY};
+/* Smooth count-up animation */
+function animateCount(target) {
+const duration = 1600;
+const startTime = performance.now();
+(function step(now) {
+  const p    = Math.min((now - startTime) / duration, 1);
+  const ease = 1 - Math.pow(1 - p, 3);          /* ease-out cubic */
+  el.textContent = Math.round(target * ease).toLocaleString();
+  el.classList.remove('loading');
+  if (p < 1) requestAnimationFrame(step);
+})(performance.now());
+}
+/* Show skeleton while waiting */
+el.classList.add('loading');
+el.textContent = '';
+/*
+/hit  on first page load of this session (counts the visit)
+/get  on tab refresh (doesn't inflate the count)
+*/
+const alreadyCounted = sessionStorage.getItem('vc');
+const endpoint = alreadyCounted ? API_GET : API_HIT;
+fetch(endpoint)
+.then(r => {
+if (!r.ok) throw new Error('API error');
+return r.json();
+})
+.then(data => {
+if (!alreadyCounted) sessionStorage.setItem('vc', '1');
+animateCount(Number(data.value));
+})
+.catch(() => {
+/* API unreachable — show dash, page still works fine */
+el.classList.remove('loading');
+el.textContent = '—';
+});
 })();
