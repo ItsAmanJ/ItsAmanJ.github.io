@@ -1881,12 +1881,3 @@ animation: skelPulse 1.1s ease-in-out infinite;
   font-weight: 700;
   min-width: 2ch;   /* prevents layout shift while loading */
 }
-.hero-visitor-num.loading {
-  display: inline-block;
-  width: 28px;
-  height: .7em;
-  background: var(--border);
-  border-radius: 4px;
-  vertical-align: middle;
-  animation: skelPulse 1.1s ease-in-out infinite;
-}
