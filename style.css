@@ -1,4 +1,4 @@
-/* ================================================================
+   /* ================================================================
    AMAN'S PORTFOLIO — style.css
    Theme: Cyberpunk-Minimal | Dark Mode | Electric Blue Accents
    Fonts: Syne (headings) · Outfit (body) · JetBrains Mono (code)
@@ -1819,6 +1819,7 @@ animation: skelPulse 1.1s ease-in-out infinite;
 
 /* Pill container */
 .hero-visitors {
+   transform: translateY(-12px);
   display: inline-flex;
   align-items: center;
   gap: .45rem;
