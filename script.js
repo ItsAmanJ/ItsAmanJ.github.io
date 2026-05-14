@@ -394,35 +394,39 @@ if (heroEl) {
   }
 
   
-  const controller = new AbortController();
-const timer = setTimeout(() => controller.abort(), 3000);
+  const alreadyCounted = sessionStorage.getItem('vc');
+  /* FIX: template literals — original code was missing backticks */
+  const endpoint = alreadyCounted
+    ? `${BASE_URL}/get/${KEY}`
+    : `${BASE_URL}/hit/${KEY}`;
 
-fetch(endpoint, { signal: controller.signal })
-  .then(r => {
-    clearTimeout(timer);
-    if (!r.ok) throw new Error('API error');
-    return r.json();
-  })
-  .then(data => {
-    if (!alreadyCounted) sessionStorage.setItem('vc', '1');
-    const raw     = Number(data.value) || 1;
-    const display = raw + SEED;
-    animateCount(display);
-  })
-  .catch(() => {
-    if (footerEl) footerEl.classList.remove('loading');
-    if (heroEl)   heroEl.classList.remove('loading');
+  fetch(endpoint)
+    .then(r => {
+      if (!r.ok) throw new Error('API error');
+      return r.json();
+    })
+    .then(data => {
+      if (!alreadyCounted) sessionStorage.setItem('vc', '1');
+      const raw     = Number(data.value) || 1;
+      const display = raw + SEED;
+      animateCount(display);
+    })
+    .catch(() => {
+      /* ── localStorage fallback ──
+         Stores a per-device running count seeded at 293.
+         Not shared across browsers, but page still works fine offline. */
+      if (footerEl) footerEl.classList.remove('loading');
 
-    const stored = parseInt(localStorage.getItem('vc_count') || '0', 10);
-    const base   = stored < (SEED + 1) ? SEED + 1 : stored;
+      const stored = parseInt(localStorage.getItem('vc_count') || '0', 10);
+      const base   = stored < (SEED + 1) ? SEED + 1 : stored;
 
-    if (!alreadyCounted) {
-      const next = base + 1;
-      localStorage.setItem('vc_count', String(next));
-      sessionStorage.setItem('vc', '1');
-      animateCount(next);
-    } else {
-      animateCount(base);
-    }
-  });
+      if (!alreadyCounted) {
+        const next = base + 1;
+        localStorage.setItem('vc_count', String(next));
+        sessionStorage.setItem('vc', '1');
+        animateCount(next);
+      } else {
+        animateCount(base);
+      }
+    });
 })();
