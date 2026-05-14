@@ -425,3 +425,4 @@ fetch(endpoint, { signal: controller.signal })
       animateCount(base);
     }
   });
+})();
