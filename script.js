@@ -378,7 +378,10 @@ if (heroEl) {
         heroEl.textContent = val.toLocaleString();
         heroEl.classList.remove('loading');
        }
-      if (heroEl) heroEl.textContent = val.toLocaleString();
+      if (footerEl) {
+  footerEl.textContent = val.toLocaleString();
+  footerEl.classList.remove('loading');
+      }
       if (p < 1) requestAnimationFrame(step);
     })(performance.now());
   }
@@ -390,7 +393,10 @@ if (heroEl) {
       heroEl.classList.remove('loading');
       heroEl.textContent = display.toLocaleString();
      }
-    if (heroEl) heroEl.textContent = display.toLocaleString();
+    if (footerEl) {
+      footerEl.classList.remove('loading');
+      footerEl.textContent = display.toLocaleString();
+    }
   }
 
   
@@ -415,7 +421,7 @@ if (heroEl) {
       /* ── localStorage fallback ──
          Stores a per-device running count seeded at 293.
          Not shared across browsers, but page still works fine offline. */
-      if (footerEl) footerEl.classList.remove('loading');
+   
 
       const stored = parseInt(localStorage.getItem('vc_count') || '0', 10);
       const base   = stored < (SEED + 1) ? SEED + 1 : stored;
