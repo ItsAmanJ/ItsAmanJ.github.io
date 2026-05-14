@@ -362,7 +362,10 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
     footerEl.classList.add('loading');
     footerEl.textContent = '';
   }
-
+if (heroEl) {
+    heroEl.classList.add('loading');
+    heroEl.textContent = '';
+}
   /* Smooth count-up animation — updates both elements */
   function animateCount(target) {
     const duration  = 1600;
@@ -371,10 +374,10 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
       const p    = Math.min((now - startTime) / duration, 1);
       const ease = 1 - Math.pow(1 - p, 3);   /* ease-out cubic */
       const val  = Math.round(target * ease);
-      if (footerEl) {
-        footerEl.textContent = val.toLocaleString();
-        footerEl.classList.remove('loading');
-      }
+       if (heroEl) {
+        heroEl.textContent = val.toLocaleString();
+        heroEl.classList.remove('loading');
+       }
       if (heroEl) heroEl.textContent = val.toLocaleString();
       if (p < 1) requestAnimationFrame(step);
     })(performance.now());
@@ -383,10 +386,10 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
   /* Show a static count without animation (used by fallback) */
   function setCount(val) {
     const display = Math.max(val, SEED + 1);
-    if (footerEl) {
-      footerEl.classList.remove('loading');
-      footerEl.textContent = display.toLocaleString();
-    }
+     if (heroEl) {
+      heroEl.classList.remove('loading');
+      heroEl.textContent = display.toLocaleString();
+     }
     if (heroEl) heroEl.textContent = display.toLocaleString();
   }
 
@@ -412,7 +415,7 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
          Stores a per-device running count seeded at 293.
          Not shared across browsers, but page still works fine offline. */
       if (footerEl) footerEl.classList.remove('loading');
-
+    if (heroEl)   heroEl.classList.remove('loading');
       const stored = parseInt(localStorage.getItem('vc_count') || '0', 10);
       const base   = stored < (SEED + 1) ? SEED + 1 : stored;
 
