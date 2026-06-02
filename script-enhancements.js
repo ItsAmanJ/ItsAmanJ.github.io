@@ -348,7 +348,7 @@
 
         const decimals = rawClean.includes('.') ? rawClean.split('.')[1]?.replace(/[^0-9]/g,'').length || 0 : 0;
         // suffix = any trailing non-numeric text after the number (e.g. nothing, since sup is removed)
-        const suffix   = rawClean.replace(/^[\d.]+/, '');
+     const suffix   = rawClean.replace(/^[\d.]+/, '');
 
         const duration  = 1800;
         const startTime = performance.now();
@@ -370,102 +370,6 @@
 
   statNums.forEach(el => observer.observe(el));
 })();
-
-
-/* ----------------------------------------------------------------
-   8.  SKILL RING UPGRADE
-        Replaces flat progress bars with circular SVG rings
-        on cards that have 5+ skills (Technical & Academic cards).
----------------------------------------------------------------- */
-(function initSkillRings() {
-  // Only upgrade the Technical skills card (first card)
-  const technicalCard = document.querySelectorAll('.skill-card')[0];
-  if (!technicalCard) return;
-
-  const skillItems = technicalCard.querySelectorAll('.skill-list li');
-  if (skillItems.length < 3) return;
-
-  // Extract skill data
-  const skills = [];
-  skillItems.forEach(item => {
-    const name = item.querySelector('.skill-name')?.textContent.trim() || '';
-    const fill = item.querySelector('.skill-fill');
-    const pct  = fill ? parseInt(fill.style.getPropertyValue('--p') || '0') : 0;
-    skills.push({ name, pct });
-  });
-
-  // Build ring grid HTML
-  const ringsWrap = document.createElement('div');
-  ringsWrap.className = 'skill-rings-wrap';
-
-  // Add gradient def (once)
-  if (!document.getElementById('ringGradientDef')) {
-    const svgDefs = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    svgDefs.setAttribute('width', '0');
-    svgDefs.setAttribute('height', '0');
-    svgDefs.style.position = 'absolute';
-    svgDefs.innerHTML = `
-      <defs>
-        <linearGradient id="ringGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%"   stop-color="var(--accent)"/>
-          <stop offset="100%" stop-color="var(--accent-3)"/>
-        </linearGradient>
-      </defs>
-    `;
-    svgDefs.id = 'ringGradientDef';
-    document.body.appendChild(svgDefs);
-  }
-
-  const CIRC = 2 * Math.PI * 30; // r=30
-
-  skills.forEach(({ name, pct }) => {
-    const item = document.createElement('div');
-    item.className = 'skill-ring-item';
-    item.innerHTML = `
-      <div class="skill-ring-svg" style="position:relative;width:72px;height:72px;">
-        <svg viewBox="0 0 72 72" width="72" height="72" style="position:absolute;inset:0;">
-          <circle class="ring-track"
-            cx="36" cy="36" r="30"
-            fill="none" stroke="var(--border)" stroke-width="5"/>
-          <circle class="ring-fill"
-            cx="36" cy="36" r="30"
-            fill="none"
-            stroke="url(#ringGradient)"
-            stroke-width="5"
-            stroke-linecap="round"
-            stroke-dasharray="${CIRC}"
-            stroke-dashoffset="${CIRC}"
-            transform="rotate(-90 36 36)"
-            style="filter:drop-shadow(0 0 4px var(--accent));transition:stroke-dashoffset 1.4s cubic-bezier(.4,0,.2,1);"/>
-        </svg>
-        <div class="ring-pct"
-          style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-                 font-family:var(--font-mono);font-size:.68rem;font-weight:700;color:var(--accent-3);">
-          ${pct}%
-        </div>
-      </div>
-      <div class="skill-ring-label">${name.split(' ').slice(0,3).join(' ')}</div>
-    `;
-    ringsWrap.appendChild(item);
-
-    // Animate ring when visible
-    const fillCircle = item.querySelector('.ring-fill');
-    const revealObserver = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting) {
-        const offset = CIRC * (1 - pct / 100);
-        setTimeout(() => { fillCircle.style.strokeDashoffset = offset; }, 300);
-        revealObserver.disconnect();
-      }
-    }, { threshold: 0.3 });
-    revealObserver.observe(item);
-  });
-
-  // Replace old skill list with rings
-  const oldList = technicalCard.querySelector('.skill-list');
-  if (oldList) oldList.replaceWith(ringsWrap);
-})();
-
-
 /* ----------------------------------------------------------------
    9.  HERO — Type-out secret message on name selection
         (matching the "select the name to reveal" easter egg hint)
