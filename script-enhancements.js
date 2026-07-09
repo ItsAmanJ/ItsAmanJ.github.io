@@ -359,7 +359,7 @@
           You found it.
         </div>
         <div style="font-size:.72rem; color:var(--text-muted); margin-top:.35rem;">
-          जय वाराणसी 🕉️
+         जय बजरंगबली 🕉️
         </div>
       `;
       document.body.appendChild(badge);
