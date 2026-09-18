@@ -376,15 +376,68 @@
               make things move.
             </p>
 
-            <div class="video-wrapper">
-              <iframe 
-                class="video-iframe"
-                src="https://www.youtube.com/embed/IJrt04bYUQk" 
-                title="Arduino Robot Demo" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                allowfullscreen>
-              </iframe>
+            <!-- ── Project media: adaptive 3-up grid (2 videos + 1 photo) ──
+                 Desktop: 3 across · Tablet: 2 + 1 full-width · Phone: stacked -->
+            <div class="media-gallery">
+              <div class="media-grid">
+
+                <!-- Slot 1 — Video: robot demo (already live) -->
+                <figure class="media-item">
+                  <div class="media-frame">
+                    <iframe
+                      class="media-embed"
+                      src="https://www.youtube.com/embed/IJrt04bYUQk"
+                      title="Arduino Robot Demo"
+                      loading="lazy"
+                      referrerpolicy="strict-origin-when-cross-origin"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowfullscreen>
+                    </iframe>
+                  </div>
+                  <figcaption class="media-caption mono">▶ Robot Demo</figcaption>
+                </figure>
+
+                <!-- Slot 2 — Video: ADD YOUR SECOND VIDEO HERE.
+                     Delete the <div class="media-placeholder">…</div> below and paste:
+
+                     <iframe
+                       class="media-embed"
+                       src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
+                       title="Describe the video"
+                       loading="lazy"
+                       referrerpolicy="strict-origin-when-cross-origin"
+                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                       allowfullscreen>
+                     </iframe>
+
+                     (YOUR_VIDEO_ID = the part after "v=" in the YouTube link.) -->
+                <figure class="media-item">
+                  <div class="media-frame">
+                    <div class="media-placeholder">
+                      <span class="media-placeholder-icon">🎬</span>
+                      <p>Video coming soon</p>
+                    </div>
+                  </div>
+                  <figcaption class="media-caption mono">▶ Video 2</figcaption>
+                </figure>
+
+                <!-- Slot 3 — Photo: ADD YOUR PHOTO HERE.
+                     Delete the <div class="media-placeholder">…</div> below and paste:
+
+                     <img src="images/robot-photo.jpg" alt="Describe the photo" loading="lazy" />
+
+                     (Put the image file at that path in your repo, or change the path.) -->
+                <figure class="media-item">
+                  <div class="media-frame">
+                    <div class="media-placeholder">
+                      <span class="media-placeholder-icon">📷</span>
+                      <p>Photo coming soon</p>
+                    </div>
+                  </div>
+                  <figcaption class="media-caption mono">📷 Project Photo</figcaption>
+                </figure>
+
+              </div>
             </div>
 
             <div class="tl-footer">

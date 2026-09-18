@@ -795,6 +795,113 @@ img { max-width: 100%; display: block; }
 
 
 /* ----------------------------------------------------------------
+   8b.  PROJECT MEDIA GRID (Achievements → robot card)
+        Adaptive 3-item gallery: 2 videos + 1 photo.
+        Uses a container query so the layout follows the CARD's
+        width (not just the screen's):
+          wide   → 3 across
+          medium → 2 across, 3rd item spans the full row
+          narrow → 1 column (stacked)
+---------------------------------------------------------------- */
+.media-gallery {
+  container-type: inline-size;
+  width: calc(100% + 40px);   /* same slight bleed the old single video had */
+  margin: 1.75rem 0 1.5rem -20px;
+}
+@media (max-width: 768px) {
+  .media-gallery { width: 100%; margin-left: 0; }
+}
+
+.media-grid {
+  display: grid;
+  grid-template-columns: 1fr;          /* default: stacked */
+  gap: 1rem;
+}
+@container (min-width: 480px) {
+  .media-grid { grid-template-columns: repeat(2, 1fr); }
+  .media-item:nth-child(3) { grid-column: 1 / -1; }   /* photo gets a full row */
+  .media-item:nth-child(3) .media-frame { aspect-ratio: 21 / 9; }   /* wider crop so it isn't huge */
+}
+@container (min-width: 800px) {
+  .media-grid { grid-template-columns: repeat(3, 1fr); }
+  .media-item:nth-child(3) { grid-column: auto; }
+  .media-item:nth-child(3) .media-frame { aspect-ratio: 16 / 9; }
+}
+
+.media-item { min-width: 0; }   /* lets grid children shrink instead of overflowing */
+
+.media-frame {
+  position: relative;
+  aspect-ratio: 16 / 9;         /* every tile is the same shape, so rows line up */
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #000;
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .5);
+  transition: border-color var(--trans), box-shadow var(--trans);
+}
+.media-item:hover .media-frame {
+  border-color: #00c896;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .5), 0 0 24px #00c8962e;
+}
+
+/* Video iframe or photo — both fill the frame */
+.media-embed,
+.media-frame > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.media-frame > img {
+  object-fit: cover;            /* crops to 16:9 without stretching */
+  transition: transform .6s var(--ease);
+}
+.media-item:hover .media-frame > img { transform: scale(1.04); }
+
+/* "Coming soon" tile shown until you drop in the real video / photo */
+.media-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .35rem;
+  padding: 0 1rem;
+  text-align: center;
+  background: radial-gradient(ellipse at 50% 40%, #0d1f18, var(--bg));
+  color: var(--text-muted);
+}
+.media-placeholder-icon { font-size: 2rem; line-height: 1; }
+.media-placeholder p { font-size: .78rem; }
+
+.media-caption {
+  margin-top: .55rem;
+  font-size: .7rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* Staggered fade-up when the card scrolls into view */
+.media-item {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity .6s var(--ease), transform .6s var(--ease);
+}
+.timeline-item.visible .media-item { opacity: 1; transform: translateY(0); }
+.timeline-item.visible .media-item:nth-child(2) { transition-delay: .12s; }
+.timeline-item.visible .media-item:nth-child(3) { transition-delay: .24s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .media-item { opacity: 1; transform: none; transition: none; }
+}
+
+
+/* ----------------------------------------------------------------
    9.  HOBBIES SECTION
 ---------------------------------------------------------------- */
 .hobbies-grid {
